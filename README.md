@@ -1,4 +1,6 @@
-Official Python image with Beautiful Soup 4 and lxml installed.
+# python-bs4
+
+Official Python image with Beautiful Soup 4 and lxml installed for Alpine Linux.
 
 The pip installation of lxml requires g++ and the development libraries libxml2-dev + libxslt-dev. After the pip installation all of the build dependencies are removed from the image, leaving just the run-time libraries libxml2 and libxslt. The result is a lightweight image of Python and Beautiful Soup 4.
 
