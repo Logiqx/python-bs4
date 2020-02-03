@@ -40,18 +40,22 @@ ARG PY_UID=1000
 ARG PY_GID=1000
 
 # Create the Python user and work directory
-RUN addgroup -g ${PY_GID} -S ${PY_GROUP} && \
-    adduser -u ${PY_UID} -S ${PY_USER} -G ${PY_USER} && \
+RUN addgroup -g ${PY_GID} ${PY_GROUP} && \
+    adduser -u ${PY_UID} --disabled-password ${PY_USER} -G ${PY_GROUP} && \
     mkdir -p /home/${PY_USER}/work && \
-    chown ${PY_USER} /home/${PY_USER}/work
+    chown -R ${PY_USER} /home/${PY_USER}
+
+# Install Tini
+RUN apk add --no-cache tini=~0.18
 
 # Copy project files from the builder
 USER ${PY_USER}
-WORKDIR /home/${PY_USER}/work
-COPY --from=builder --chown=jovyan:jovyan /home/jovyan/work/ ./
+WORKDIR /home/${PY_USER}/work/demo
+COPY --from=builder --chown=jovyan:jovyan /home/jovyan/work/demo/ ./
 
-# Define the command / entrypoint
-CMD ["python3"]
+# Wait for CMD to exit, reap zombies and perform signal forwarding
+ENTRYPOINT ["/sbin/tini", "--"]
+CMD ["python"]
 ```
 
 Note: This example was derived from the [Dockerfile](https://github.com/Logiqx/wca-db/blob/master/Dockerfile) in my [wca-db](https://github.com/Logiqx/wca-db) project on GitHub.
