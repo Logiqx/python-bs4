@@ -1,14 +1,14 @@
 # python-bs4
 
-Official Python image with Beautiful Soup 4 and lxml installed for Alpine Linux.
+Official Python image with Beautiful Soup 4 and lxml installed for Alpine Linux + Debian Slim.
 
-The pip installation of lxml requires g++ and the development libraries libxml2-dev + libxslt-dev. After the pip installation all of the build dependencies are removed from the image, leaving just the run-time libraries libxml2 and libxslt. The result is a lightweight image of Python and Beautiful Soup 4.
+This project is based upon logiqx/python-lxml. The result is a lightweight image of Python and Beautiful Soup 4.
 
 ### Usage
 
 Note: This image is not meant to be run directly since it does not include things such as a non-privileged user. It is really intended for use within builds of runtime containers for Python scripts.
 
-The example Dockerfile converts a collection of Jupyter notebooks to regular Python scripts, building a lightweight runtime image. The employment of a multistage build ensures that the final image is kept nice and small.
+The example Dockerfile for Alpine Linux converts a collection of Jupyter notebooks to regular Python scripts, building a lightweight runtime image. The employment of a multistage build ensures that the final image is kept nice and small.
 
 ```
 # Base image versions
@@ -62,7 +62,9 @@ Note: This example was derived from the [Dockerfile](https://github.com/Logiqx/w
 
 ### Building a Custom Image
 
-To build a custom image for a specific version of the Python or Alpine use the following syntax:
+#### Alpine Linux
+
+To build a custom image for a specific version of the Python or Alpine Linux use the following syntax:
 
 ```
 docker image build --build-arg PYTHON_VERSION=3.8 . -t python-bs4:3.8-alpine3.11
@@ -73,4 +75,15 @@ You can provide overrides for the following:
 - PYTHON_VERSION - default of 3.8
 - ALPINE_VERSION - default of 3.11
 
-Note: Building lxml requires >1GB memory and does not work on tiny machines such as the t3.micro on AWS. To avoid the machine grinding to a standstill the build must be run on a larger instance type such as t3.small.
+#### Debian Slim
+
+To build a custom image for a specific version of the Python or Debian Slim use the following syntax:
+
+```
+docker image build --build-arg PYTHON_VERSION=3.8 . -f Dockerfile-slim -t python-bs4:3.8-slim-buster
+```
+
+You can provide overrides for the following:
+
+- PYTHON_VERSION - default of 3.8
+- DEBIAN_VERSION - default of buster

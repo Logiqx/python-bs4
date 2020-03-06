@@ -1,9 +1,6 @@
 ARG PYTHON_VERSION=3.8
 ARG ALPINE_VERSION=3.11
 
-FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION}
+FROM logiqx/python-lxml:${PYTHON_VERSION}-alpine${ALPINE_VERSION}
 
-RUN apk add --no-cache libxml2 libxslt && \
-    apk add --no-cache --virtual .build-deps libxml2-dev libxslt-dev g++ && \
-    pip install --no-cache-dir beautifulsoup4==4.8.* lxml==4.5.* && \
-    apk del .build-deps
+RUN pip install --no-cache-dir beautifulsoup4==4.8.*
