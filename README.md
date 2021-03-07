@@ -13,8 +13,8 @@ The example Dockerfile for Alpine Linux converts a collection of Jupyter noteboo
 ```
 # Base image versions
 ARG NOTEBOOK_VERSION=latest
-ARG PYTHON_VERSION=3.8
-ARG ALPINE_VERSION=3.11
+ARG PYTHON_VERSION=3.9
+ARG ALPINE_VERSION=3.13
 
 # Jupyter notebook image is used as the builder
 FROM jupyter/base-notebook:${NOTEBOOK_VERSION} AS builder
@@ -46,7 +46,7 @@ RUN addgroup -g ${PY_GID} ${PY_GROUP} && \
     chown -R ${PY_USER} /home/${PY_USER}
 
 # Install Tini
-RUN apk add --no-cache tini=~0.18
+RUN apk add --no-cache tini=~0.19
 
 # Copy project files from the builder
 USER ${PY_USER}
@@ -67,23 +67,23 @@ Note: This example was derived from the [Dockerfile](https://github.com/Logiqx/w
 To build a custom image for a specific version of the Python or Alpine Linux use the following syntax:
 
 ```
-docker image build --build-arg PYTHON_VERSION=3.8 . -t python-bs4:3.8-alpine3.11
+docker image build --build-arg PYTHON_VERSION=3.9 . -t python-bs4:3.9-alpine3.13
 ```
 
 You can provide overrides for the following:
 
-- PYTHON_VERSION - default of 3.8
-- ALPINE_VERSION - default of 3.11
+- PYTHON_VERSION - default of 3.9
+- ALPINE_VERSION - default of 3.13
 
 #### Debian Slim
 
 To build a custom image for a specific version of the Python or Debian Slim use the following syntax:
 
 ```
-docker image build --build-arg PYTHON_VERSION=3.8 . -f Dockerfile-slim -t python-bs4:3.8-slim-buster
+docker image build --build-arg PYTHON_VERSION=3.9 . -f Dockerfile-slim -t python-bs4:3.9-slim-buster
 ```
 
 You can provide overrides for the following:
 
-- PYTHON_VERSION - default of 3.8
+- PYTHON_VERSION - default of 3.9
 - DEBIAN_VERSION - default of buster

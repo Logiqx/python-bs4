@@ -1,6 +1,6 @@
-ARG PYTHON_VERSION=3.8
+ARG PYTHON_VERSION=3.9
 ARG DEBIAN_VERSION=buster
 
 FROM logiqx/python-lxml:${PYTHON_VERSION}-slim-${DEBIAN_VERSION}
 
-RUN pip install --no-cache-dir beautifulsoup4==4.8.*
+RUN pip install --no-cache-dir beautifulsoup4==4.9.*
