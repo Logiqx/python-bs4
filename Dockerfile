@@ -1,6 +1,6 @@
-ARG PYTHON_VERSION=3.9
-ARG ALPINE_VERSION=3.13
+ARG PYTHON_VERSION=3.10
+ARG ALPINE_VERSION=3.15
 
 FROM logiqx/python-lxml:${PYTHON_VERSION}-alpine${ALPINE_VERSION}
 
-RUN pip install --no-cache-dir beautifulsoup4==4.9.*
+RUN pip install --no-cache-dir beautifulsoup4==4.10.*
